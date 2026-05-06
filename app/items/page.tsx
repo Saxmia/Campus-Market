@@ -101,7 +101,7 @@ export default function ItemsPage() {
           >
             <option value="all">全部商品</option>
             <option value="unsold">未售出商品 (视图查询)</option>
-            <option value="price_gt_30">价格 > 30</option>
+            <option value="price_gt_30">价格 &gt; 30</option>
             <option value="category_daily">生活用品 (DailyGoods)</option>
             <option value="user_u001_items">u001 发布的所有商品</option>
             <option value="u001_items_status">u001 商品状态 (连接查询)</option>
