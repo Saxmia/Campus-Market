@@ -1,4 +1,4 @@
-import { sql } from '@vercel/postgres';
+import sql from '@/lib/db';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
@@ -23,10 +23,10 @@ export async function GET() {
     `;
 
     return NextResponse.json({
-      totalItems: totalItems.rows[0].count,
-      categoryCount: categoryCount.rows,
-      avgPrice: parseFloat(avgPrice.rows[0].avg).toFixed(2),
-      topSeller: topSeller.rows[0]
+      totalItems: totalItems[0].count,
+      categoryCount: categoryCount,
+      avgPrice: parseFloat(avgPrice[0].avg || '0').toFixed(2),
+      topSeller: topSeller[0] || { user_name: '无', item_count: 0 }
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

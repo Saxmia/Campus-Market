@@ -1,9 +1,9 @@
-import { sql } from '@vercel/postgres';
+import sql from '@/lib/db';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    const { rows } = await sql`SELECT * FROM items ORDER BY item_id ASC`;
+    const rows = await sql`SELECT * FROM items ORDER BY item_id ASC`;
     return NextResponse.json(rows);
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -40,8 +40,12 @@ export async function DELETE(request: Request) {
     const { searchParams } = new URL(request.url);
     const item_id = searchParams.get('item_id');
     
+    if (!item_id) {
+        return NextResponse.json({ error: "Missing item_id" }, { status: 400 });
+    }
+
     // 只能删除未售出的商品
-    const { rows } = await sql`SELECT status FROM items WHERE item_id = ${item_id}`;
+    const rows = await sql`SELECT status FROM items WHERE item_id = ${item_id}`;
     if (rows.length > 0 && rows[0].status === 1) {
       return NextResponse.json({ error: "Cannot delete sold item" }, { status: 400 });
     }
