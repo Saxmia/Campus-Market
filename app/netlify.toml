@@ -1,0 +1,25 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+
+[[redirects]]
+  from = "/_next/*"
+  to = "/_next/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/*"
+  to = "/api/:splat"
+  status = 200
+
+[[
+redirects
+]]
+  from = "/api/*"
+  to = "/api/:splat"
+  status = 200
